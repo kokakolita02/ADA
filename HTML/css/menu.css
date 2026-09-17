@@ -1,0 +1,65 @@
+
+body {
+    background-color: #f8f9fa !important; 
+    color: #350aa3; 
+}
+
+
+.header-ada {
+    background-color: #634887; 
+    border-bottom: 2px solid #5a3c9e; 
+}
+
+
+.header-ada .nav-link {
+    color: #bda6df; 
+    transition: color 0.3s ease; 
+}
+
+.header-ada .nav-link:hover,
+.header-ada .nav-link:focus {
+    color: #ffffff; /* Se iluminan a blanco al pasar el mouse */
+}
+
+.header-ada .nav-link.active {
+    color: #ffffff;
+    font-weight: bold; /* Destaca la página en la que estás actualmente */
+}
+
+/* --- barra de búsqueda --- */
+.header-ada .form-control {
+    background-color: white;
+    border: 1px solid #ced4da;
+    color: black;
+}
+
+
+.header-ada .form-control:focus {
+    border-color: #7c2d82; 
+    box-shadow: 0 0 0 0.25rem rgba(124, 45, 130, 0.25); 
+    outline: none;
+}
+
+
+.btn-primary {
+    background-color: #7c2d82; 
+    border-color: #7c2d82;
+    color: white;
+}
+
+.btn-primary:hover, 
+.btn-primary:focus {
+    background-color: #5e1c63; 
+    border-color: #5e1c63;
+    box-shadow: 0 0 0 0.25rem rgba(124, 45, 130, 0.5);
+}
+
+
+.hero-ada {
+    background-color: #634887; 
+    border: 1px solid #634887; 
+}
+
+.hero-ada img:hover {
+    transform: scale(1.02);
+}

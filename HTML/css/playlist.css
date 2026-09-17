@@ -1,0 +1,139 @@
+.playlist-album {
+    background-color: #1e123a;
+}
+
+.playlist-card-dark {
+    background-color: #3d2673;
+    border: 1px solid #5a3c9e;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.playlist-card-dark:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.35);
+}
+
+.playlist-card-dark .card-img-top {
+    height: 180px;
+    object-fit: cover;
+    background-color: #2b1b54;
+}
+
+.playlist-desc-secundario {
+    color: #bda6df;
+}
+
+.playlist-desc-dark {
+    color: #bda6df;
+    
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+
+.estado-vacio-oscuro {
+    border: 2px dashed #5a3c9e;
+    border-radius: 12px;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: #bda6df;
+}
+
+
+.btn-morado {
+    background-color: #7c2d82;
+    border-color: #7c2d82;
+    color: #ffffff;
+}
+
+.btn-morado:hover {
+    background-color: #5e1c63;
+    border-color: #5e1c63;
+    color: #ffffff;
+}
+
+#vistaDetalle {
+    background-color: #1e123a;
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: #ffffff;
+}
+
+#vistaDetalle .text-secondary {
+    color: #bda6df !important;
+}
+
+.fila-cancion {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid #5a3c9e;
+    border-radius: 10px;
+    background-color: #3d2673;
+    margin-bottom: 0.5rem;
+}
+
+.fila-cancion:hover {
+    background-color: #47307f;
+}
+
+.mini-portada {
+    width: 52px;
+    height: 52px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #2b1b54;
+    flex-shrink: 0;
+}
+
+.cancion-datos {
+    min-width: 0;
+    flex-grow: 1;
+}
+
+.cancion-titulo {
+    color: #ffffff;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.cancion-artista {
+    color: #bda6df;
+    font-size: 0.85rem;
+    margin-bottom: 0;
+}
+
+.btn-icono {
+    background-color: #2b1b54;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #d9cdf0;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.btn-icono:hover {
+    background-color: #47307f;
+    color: #ffffff;
+}
+
+@media (max-width: 575.98px) {
+    .fila-cancion {
+        gap: 0.6rem;
+        padding: 0.5rem;
+    }
+
+    .mini-portada {
+        width: 44px;
+        height: 44px;
+    }
+
+    .cancion-titulo {
+        font-size: 0.95rem;
+    }
+}

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Playlists - ADA MUSIC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link href="../css/menu.css" rel="stylesheet">
+    <link href="../css/playlist.css" rel="stylesheet">
+</head>
+<body class="bg-body-tertiary">
+
+    <!-- HEADER ADA MUSIC  -->
+    <header class="header-ada p-3">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                <a href="menu.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none me-lg-4">
+                    <img src="../image/logochico.png" alt="ADA MUSIC" height="40">
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="menu.html" class="nav-link px-2">Menú Principal</a></li>
+                    <li><a href="reproductor.html" class="nav-link px-2">Reproductor</a></li>
+                    <li><a href="playlist.html" class="nav-link px-2 text-white fw-bold">Playlists</a></li>
+                    <li><a href="historial.html" class="nav-link px-2">Historial</a></li>
+                </ul>
+
+                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" onsubmit="buscarCancion(event)">
+                    <input id="busqueda" type="search" class="form-control" placeholder="Buscar canciones, artistas...">
+                </form>
+
+                <div class="text-end">
+                    <a href="login.html" class="btn btn-primary">Cerrar sesión</a>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <main>
+
+     
+        <div class="container pt-3">
+            <div id="mensaje" class="alert d-none" role="alert"></div>
+        </div>
+
+        <!-- LISTADO DE PLAYLISTS  -->
+        <div id="vistaListado">
+
+            <!--  título y descripción -->
+            <section class="py-5 text-center container">
+                <div class="row py-lg-5">
+                    <div class="col-lg-6 col-md-8 mx-auto">
+                        <h1 class="fw-light">Mis Playlists</h1>
+                        <p class="lead text-body-secondary">Aquí puedes encontrar todas tus colecciones de música. Organiza tus canciones favoritas por género, estado de ánimo o crea la mezcla perfecta para tu día.</p>
+                        <p>
+                            <button type="button" class="btn btn-morado my-2" data-bs-toggle="modal" data-bs-target="#modalCrear">
+                                Crear nueva playlist
+                            </button>
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            
+            <div class="album py-5 playlist-album">
+                <div class="container">
+
+                    <div id="contenedorPlaylists" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3"></div>
+
+                </div>
+            </div>
+
+        </div>
+
+        <!--  detalle de playlist -->
+        <section id="vistaDetalle" class="container my-4 d-none">
+
+            <button id="btnVolver" class="btn btn-link text-decoration-none px-0 mb-2 playlist-desc-secundario" type="button">
+                <i class="fa fa-arrow-left me-1"></i> Volver a mis playlists
+            </button>
+
+            <div class="pb-3 mb-3 border-bottom border-secondary">
+                <h2 id="detalleNombre" class="mb-1">Nombre de la playlist</h2>
+                <p id="detalleDescripcion" class="text-secondary mb-2">Descripción</p>
+                <span id="detalleTotal" class="badge btn-morado">0 canciones</span>
+            </div>
+
+            <div class="d-flex flex-wrap gap-2 mb-4">
+                <button id="btnReproducirPlaylist" class="btn btn-morado" type="button">
+                    <i class="fa fa-play me-1"></i> Reproducir
+                </button>
+                <button id="btnAgregarCanciones" class="btn btn-outline-light" type="button">
+                    <i class="fa fa-plus me-1"></i> Agregar canciones
+                </button>
+                <button id="btnEliminarPlaylist" class="btn btn-outline-danger" type="button">
+                    <i class="fa fa-trash me-1"></i> Eliminar playlist
+                </button>
+            </div>
+
+            <div id="contenedorCanciones"></div>
+
+        </section>
+
+    </main>
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top border-secondary">
+
+            <p class="col-md-4 mb-0 text-body-secondary">© 2026 ADA MUSIC</p>
+
+            <a href="menu.html" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+                <img src="../image/logochico.png" alt="ADA MUSIC" height="32">
+            </a>
+
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Página Principal</a></li>
+                <li class="nav-item"><a href="tel:+56962448657" class="nav-link px-2 text-body-secondary">+56 9 6244 8657</a></li>
+                <li class="nav-item"><a href="mailto:soporte@ada.music.com" class="nav-link px-2 text-body-secondary">soporte@ada.music.com</a></li>
+            </ul>
+
+        </footer>
+    </div>
+
+    <!--  CREAR PLAYLIST  -->
+    <div class="modal fade" id="modalCrear" tabindex="-1" aria-labelledby="tituloModalCrear" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <form id="formCrear" novalidate>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tituloModalCrear">Nueva playlist</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="inputNombre" class="form-label">Nombre <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="inputNombre" maxlength="40"
+                                   placeholder="Ej: Para estudiar">
+                            <div id="errorNombre" class="invalid-feedback"></div>
+                        </div>
+
+                        <div class="mb-1">
+                            <label for="inputDescripcion" class="form-label">Descripción (opcional)</label>
+                            <textarea class="form-control" id="inputDescripcion" rows="2" maxlength="120"
+                                      placeholder="¿De qué se trata esta playlist?"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                        <button type="submit" class="btn btn-morado">Crear playlist</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--  AGREGAR CANCIONES -->
+    <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="tituloModalAgregar" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tituloModalAgregar">Agregar canción</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+
+                <div class="modal-body">
+                    <label for="selectCancion" class="form-label">Elige una canción del catálogo</label>
+                    <select id="selectCancion" class="form-select"></select>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button id="btnConfirmarAgregar" type="button" class="btn btn-morado">Agregar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/catalogo.js"></script>
+    <script src="../js/playlist.js"></script>
+
+    <script>
+    // Búsqueda del header
+    function buscarCancion(event) {
+        event.preventDefault();
+
+        let texto = document.getElementById("busqueda").value.toLowerCase();
+
+        for (let i = 0; i < catalogo.length; i++) {
+            if (catalogo[i].nombre.toLowerCase().includes(texto) ||
+                catalogo[i].artista.toLowerCase().includes(texto)) {
+
+                localStorage.setItem("cancionBuscada", i);
+                window.location.href = "reproductor.html";
+                return;
+            }
+        }
+
+        mostrarMensaje("No se encontraron resultados para \"" + texto + "\".", "warning");
+    }
+    </script>
+
+</body>
+</html>

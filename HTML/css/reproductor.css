@@ -1,0 +1,79 @@
+
+.reproductor-card {
+    background-color: white;
+    width: 100%;
+    max-width: 380px;
+    text-align: center;
+    box-shadow: 0 0.25rem 0.75rem rgba(53, 10, 163, 0.15);
+}
+
+.portada {
+    width: 220px;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 12px;
+    background-color: #e5ddf5; 
+}
+
+.tiempo {
+    font-size: 0.85rem;
+    color: #6c757d;
+    min-width: 2.5rem;
+}
+
+
+.form-range::-webkit-slider-thumb {
+    background-color: #7c2d82;
+}
+.form-range::-moz-range-thumb {
+    background-color: #7c2d82;
+}
+.form-range::-webkit-slider-runnable-track {
+    background-color: #bda6df;
+}
+
+
+.btn-control {
+    background-color: #f0ecf9;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+    color: #634887;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn-control:hover {
+    background-color: #d9cdf0;
+}
+
+.btn-control-grande {
+    width: 64px;
+    height: 64px;
+    font-size: 1.6rem;
+    background-color: #7c2d82;
+    color: white;
+}
+
+.btn-control-grande:hover {
+    background-color: #5e1c63;
+}
+/* Botón de favorito, debajo de los controles */
+.btn-favorito {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: #bda6df;
+    cursor: pointer;
+}
+
+.btn-favorito:hover {
+    color: #7c2d82;
+}
+
+/* Cuando la canción actual ya es favorita, el corazón está rojo */
+.btn-favorito .fa-solid {
+    color: #e0245e;
+}
