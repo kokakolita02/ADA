@@ -11,7 +11,8 @@
 <body class="text-center d-flex flex-column min-vh-100 bg-body-tertiary">
 
     <main class="form-signin w-100 m-auto" style="max-width: 330px; padding: 15px;">
-        <form action="menu.html">
+        <!-- Se quitó action="menu.html" y se agregó id="loginForm" -->
+        <form id="loginForm">
 
             <h1 class="h3 mb-3 fw-normal text-light">
                 <img src="../image/logo2.png" alt="ADA MUSIC" width="250">
@@ -35,6 +36,11 @@
 
             <button class="btn btn-primary w-100 py-2" type="submit">Entrar</button>
 
+            <!-- Mensaje de error oculto por defecto, con estilos de Bootstrap -->
+            <div id="mensaje-error" class="alert alert-danger mt-3" style="display: none;" role="alert">
+                Credenciales incorrectas
+            </div>
+
         </form>
     </main>
 
@@ -50,5 +56,7 @@
         </div>
     </footer>
 
+    <!-- Conexión al archivo JavaScript -->
+    <script src="../js/login.js"></script>
 </body>
 </html>
