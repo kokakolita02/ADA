@@ -1,12 +1,6 @@
-// ============================================================
-// ADA MUSIC - Playlists
-// Usa la variable global 'catalogo' (js/catalogo.js) y guarda
-// las playlists en localStorage porque no hay backend todavía.
-// ============================================================
-
 const CLAVE_PLAYLISTS = "ada_playlists";
 let playlists = [];
-let idPlaylistAbierta = null; // null = estamos viendo el listado, no el detalle
+let idPlaylistAbierta = null; 
 
 // Referencias al HTML
 const vistaListado = document.getElementById("vistaListado");
