@@ -31,8 +31,6 @@ Funcionalidades agregadas en la Tarea 2:
 
 Archivo JSON:
 Está en HTML/json/canciones.json. Es una lista de 15 canciones y cada una tiene esta forma (las rutas son relativas a la carpeta html):
-
-json
 ```
 {
   "id": 1,
