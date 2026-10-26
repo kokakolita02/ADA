@@ -11,18 +11,32 @@
     <link href="../css/menu.css" rel="stylesheet">
 
     <style>
+        /* Fondo de la página */
+        body {
+            background-color: #1e123a !important;
+            color: #ffffff;
+        }
+
+        /* Texto del footer en lila claro  */
+        footer .text-body-secondary {
+            color: #bda6df !important;
+        }
+
+        /* Tarjetas del historial  */
         #historial p {
-            background-color: white;
+            background-color: #3d2673;
+            border: 1px solid #5a3c9e;
             padding: 15px;
             margin-bottom: 10px;
             border-radius: 10px;
-            color: #350aa3;
+            color: #ffffff;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
 
-<body class="bg-body-tertiary">
+
+<body>
 
     <!-- HEADER ADA MUSIC -->
     <header class="header-ada p-3">
@@ -37,19 +51,19 @@
                 <!-- enlaces -->
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="menu.html" class="nav-link px-2">Menú Principal</a></li>
-                    <li><a href="reproductor.html" class="nav-link px-2">Reproductor</a></li>
+                    <li><a href="catalogo.html" class="nav-link px-2">Catálogo</a></li>
                     <li><a href="playlist.html" class="nav-link px-2">Playlists</a></li>
                     <li><a href="historial.html" class="nav-link px-2 text-white fw-bold">Historial</a></li>
                 </ul>
 
-                <!-- barra de búsqueda -->
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-                    <input type="search" class="form-control" placeholder="Buscar canciones, artistas..." aria-label="Search">
-                </form>
-
                 <!-- cerrar sesión -->
-                <div class="text-end">
-                    <a href="login.html" class="btn btn-primary">Cerrar sesión</a>
+                <div class="dropdown text-end">
+                <button class="btn btn-secondary dropdown-toggle fw-bold" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #8c428f; border: none;">
+                <span id="nombre-usuario-nav"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item text-danger" href="#" onclick="localStorage.removeItem('usuarioLogueado'); window.location.href='index.html?vista=login'; return false;">Cerrar sesión</a></li>
+                </ul>
                 </div>
 
             </div>
@@ -101,7 +115,7 @@
         <!-- copyright -->
         <p class="col-md-4 mb-0 text-body-secondary">© 2026 ADA MUSIC</p> 
         
-        <!-- jogo  -->
+        <!-- logo -->
         <a href="menu.html" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-decoration-none"> 
             <img src="../image/logochico2.png" alt="ADA MUSIC" height="32">
         </a> 
@@ -110,11 +124,14 @@
         <ul class="nav col-md-4 justify-content-end"> 
             <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Página Principal</a></li> 
             <li class="nav-item"><a href="tel:+56962448657" class="nav-link px-2 text-body-secondary">+56 9 6244 8657</a></li> 
-            <li class="nav-item"><a href="soporte@ada.music.com" class="nav-link px-2 text-body-secondary">soporte@ada.music.com</a></li> 
+            <li class="nav-item"><a href="mailto:soporte@ada.music.com" class="nav-link px-2 text-body-secondary">soporte@ada.music.com</a></li> 
         </ul> 
         
     </footer> 
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="../js/navbar.js"></script>
+<script src="../js/navbar.js"></script>
 
 </body>
 </html>

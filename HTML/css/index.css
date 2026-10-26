@@ -1,0 +1,50 @@
+
+.card-presentacion {
+    background-color: #fdfcff;
+    border: 1px solid #e6def5;
+}
+
+/* Gris  para los textos/títulos principales */
+.text-ada-dark {
+    color: #5c636a;
+}
+
+
+.text-ada-purple {
+    color: #775a96;
+}
+
+.bg-ada-badge {
+    background-color: #7c2d82;
+}
+
+.badge-seccion {
+    font-size: 0.9em;
+    padding: 8px 15px;
+}
+
+.hero-section {
+    background-color: #634887;
+}
+
+.btn-ada-primary {
+    background-color: #7c2d82;
+    border-color: #7c2d82;
+    color: #ffffff;
+}
+
+.btn-ada-primary:hover {
+    background-color: #5c1f61; /* Tono más oscuro para el hover */
+    border-color: #5c1f61;
+    color: #ffffff;
+}
+
+.login-container {
+    max-width: 330px; 
+    padding: 15px;
+}
+
+/* para que los textos del formulario (Usuario/Contraseña) queden morados */
+.form-floating label {
+    color: #775a96;
+}

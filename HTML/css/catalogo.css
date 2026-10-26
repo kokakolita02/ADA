@@ -1,0 +1,204 @@
+
+
+/* evita parpadeos al cargar la pagina */
+[x-cloak] { display: none !important; }
+
+/* Fondo oscuro de toda la página (el !important es porque Bootstrap también pinta el body) */
+body {
+    background-color: #1e123a !important;
+    color: #ffffff;
+}
+
+
+/* ---------- 2. HEADER (antes en menu.css) ---------- */
+
+.header-ada {
+    background-color: #634887;
+    border-bottom: 2px solid #5a3c9e;
+}
+
+.header-ada .nav-link {
+    color: #bda6df;
+    transition: color 0.3s ease;
+}
+
+.header-ada .nav-link:hover,
+.header-ada .nav-link:focus {
+    color: #ffffff; /* se iluminan a blanco al pasar el mouse */
+}
+
+.header-ada .nav-link.active {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+/* CATÁLOGO */
+
+/* Zona principal con el fondo morado oscuro */
+.playlist-album {
+    background-color: #1e123a;
+}
+
+/* Tarjetas de canciones y panel de ayuda / sugerencias */
+.playlist-card-dark {
+    background-color: #3d2673;
+    border: 1px solid #5a3c9e;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.playlist-card-dark:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.35);
+}
+
+.playlist-card-dark .card-img-top {
+    height: 180px;
+    object-fit: cover;
+    background-color: #2b1b54;
+}
+
+/* Textos en lila claro */
+.playlist-desc-secundario {
+    color: #bda6df;
+}
+
+.playlist-desc-dark {
+    color: #bda6df;
+
+    /* Corta el texto a 2 líneas con "..." */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Mensaje de "Cargando canciones…" */
+.estado-vacio-oscuro {
+    border: 2px dashed #5a3c9e;
+    border-radius: 12px;
+    padding: 2.5rem 1rem;
+    text-align: center;
+    color: #bda6df;
+}
+
+/* Botón morado (Reproducir, género, sugerir canción) */
+.btn-morado {
+    background-color: #7c2d82;
+    border-color: #7c2d82;
+    color: #ffffff;
+}
+
+.btn-morado:hover {
+    background-color: #5e1c63;
+    border-color: #5e1c63;
+    color: #ffffff;
+}
+
+/* Botón redondo con ícono (lo usa el mini reproductor) */
+.btn-icono {
+    background-color: #2b1b54;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #d9cdf0;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+.btn-icono:hover {
+    background-color: #47307f;
+    color: #ffffff;
+}
+
+/* Fondo oscuro que cubre toda la pantalla detrás del reproductor */
+.reproductor-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mini-reproductor {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    z-index: 1030;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.6rem 1rem;
+    background-color: #3d2673;
+    border-top: 1px solid #5a3c9e;
+    box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.35);
+    color: white;
+}
+
+/* Barrita de progreso que se ve arriba del mini reproductor */
+.mini-progreso {
+    position: absolute;
+    top: -1px; left: 0;
+    height: 3px;
+    background-color: #c77dd0;
+    transition: width 0.25s linear;
+}
+
+.mini-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-width: 0;
+    flex-grow: 1;
+    cursor: pointer;
+}
+
+.mini-info img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #1e123a;
+    flex-shrink: 0;
+}
+
+.mini-textos { min-width: 0; }
+
+.mini-titulo, .mini-artista {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.mini-titulo { font-weight: 600; }
+.mini-artista { color: #bda6df; font-size: 0.85rem; }
+
+.mini-controles {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+.mini-controles .btn-icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mini-controles .mini-play {
+    width: 44px;
+    height: 44px;
+    background-color: #7c2d82;
+    color: #ffffff;
+}
+
+/* En pantallas chicas se esconden los botones opcionales */
+@media (max-width: 575.98px) {
+    .mini-opcional { display: none !important; }
+}

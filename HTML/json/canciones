@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "nombre": "ME JALO",
+    "artista": "Grupo Frontera, Fuerza Regida",
+    "genero": "Regional mexicano",
+    "archivo": "../music/MEJALO.mp3",
+    "portada": "../image/MEJALO.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Bichiyal",
+    "artista": "Bad Bunny",
+    "genero": "Urbano latino",
+    "archivo": "../music/BICHIYAL.mp3",
+    "portada": "../image/badbunny2.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "BbY WOW",
+    "artista": "Karol G",
+    "genero": "Urbano latino",
+    "archivo": "../music/KAROL G, Judeline, rusowsky - BbY WOW (Visualizer) [fRIhCiUVaKs].mp3",
+    "portada": "../image/kg.png"
+  },
+  {
+    "id": 4,
+    "nombre": "Mr. October",
+    "artista": "Bad Bunny",
+    "genero": "Urbano latino",
+    "archivo": "../music/MROCTOBER.mp3",
+    "portada": "../image/badbunny1.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "QUE LOUCURA (Remix)",
+    "artista": "Cacau Chuu, Luísa Sonza, Ryan Castro, DJ EXE",
+    "genero": "Funk",
+    "archivo": "../music/QUELOUCURA.mp3",
+    "portada": "../image/kelocura.png"
+  },
+  {
+    "id": 6,
+    "nombre": "Contando Ovejas",
+    "artista": "Wos",
+    "genero": "Hip hop",
+    "archivo": "../music/CO.mp3",
+    "portada": "../image/oscuroextasiswos.png"
+  },
+  {
+    "id": 7,
+    "nombre": "Fuji",
+    "artista": "Luis Alberto Spinetta",
+    "genero": "Rock",
+    "archivo": "../music/FUJI.mp3",
+    "portada": "../image/fuji.png"
+  },
+  {
+    "id": 8,
+    "nombre": "Los Libros de la Buena Memoria",
+    "artista": "Luis Alberto Spinetta",
+    "genero": "Rock",
+    "archivo": "../music/LOSLIBROSDELABUENAMEMORIA.mp3",
+    "portada": "../image/11122.png"
+  },
+  {
+    "id": 9,
+    "nombre": "Canción para los Días de la Vida",
+    "artista": "Luis Alberto Spinetta",
+    "genero": "Rock",
+    "archivo": "../music/CancionparalosDíasdelaVida.mp3",
+    "portada": "../image/spi.png"
+  },
+  {
+    "id": 10,
+    "nombre": "Meat Grinder",
+    "artista": "MF DOOM",
+    "genero": "Hip hop",
+    "archivo": "../music/MeatGrinder.mp3",
+    "portada": "../image/doom.png"
+  },
+  {
+    "id": 11,
+    "nombre": "Eye",
+    "artista": "MF DOOM",
+    "genero": "Hip hop",
+    "archivo": "../music/Eye.mp3",
+    "portada": "../image/doom.png"
+  },
+  {
+    "id": 12,
+    "nombre": "Grado #8",
+    "artista": "Ober",
+    "genero": "Hip hop",
+    "archivo": "../music/GRADO8.mp3",
+    "portada": "../image/grado8.png"
+  },
+  {
+    "id": 13,
+    "nombre": "Love Me",
+    "artista": "Lil Wayne",
+    "genero": "Hip hop",
+    "archivo": "../music/LoveMe.mp3",
+    "portada": "../image/loveme.png"
+  },
+  {
+    "id": 14,
+    "nombre": "En el aire",
+    "artista": "Baby Jey & Young Weapon",
+    "genero": "Urbano latino",
+    "archivo": "../music/EnElAire.mp3",
+    "portada": "../image/bbyj.png"
+  },
+  {
+    "id": 15,
+    "nombre": "Sol Mayor",
+    "artista": "Pedro Piedra",
+    "genero": "Pop",
+    "archivo": "../music/SOLMAYOR.mp3",
+    "portada": "../image/630.png"
+  }
+]

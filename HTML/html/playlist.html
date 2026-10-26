@@ -9,7 +9,7 @@
     <link href="../css/menu.css" rel="stylesheet">
     <link href="../css/playlist.css" rel="stylesheet">
 </head>
-<body class="bg-body-tertiary">
+<body>
 
     <!-- HEADER ADA MUSIC  -->
     <header class="header-ada p-3">
@@ -22,17 +22,20 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="menu.html" class="nav-link px-2">Menú Principal</a></li>
-                    <li><a href="reproductor.html" class="nav-link px-2">Reproductor</a></li>
+                    <li><a href="catalogo.html" class="nav-link px-2">Catálogo</a></li>
                     <li><a href="playlist.html" class="nav-link px-2 text-white fw-bold">Playlists</a></li>
                     <li><a href="historial.html" class="nav-link px-2">Historial</a></li>
                 </ul>
 
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" onsubmit="buscarCancion(event)">
-                    <input id="busqueda" type="search" class="form-control" placeholder="Buscar canciones, artistas...">
-                </form>
+               
 
-                <div class="text-end">
-                    <a href="login.html" class="btn btn-primary">Cerrar sesión</a>
+                <div class="dropdown text-end">
+                <button class="btn btn-secondary dropdown-toggle fw-bold" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #8c428f; border: none;">
+                <span id="nombre-usuario-nav"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item text-danger" href="#" onclick="localStorage.removeItem('usuarioLogueado'); window.location.href='index.html?vista=login'; return false;">Cerrar sesión</a></li>
+                </ul>
                 </div>
 
             </div>
@@ -53,8 +56,8 @@
             <section class="py-5 text-center container">
                 <div class="row py-lg-5">
                     <div class="col-lg-6 col-md-8 mx-auto">
-                        <h1 class="fw-light">Mis Playlists</h1>
-                        <p class="lead text-body-secondary">Aquí puedes encontrar todas tus colecciones de música. Organiza tus canciones favoritas por género, estado de ánimo o crea la mezcla perfecta para tu día.</p>
+                        <h1 class="fw-light text-white">Mis Playlists</h1>
+                        <p class="lead text-white-50">Aquí puedes encontrar todas tus colecciones de música. Organiza tus canciones favoritas por género, estado de ánimo o crea la mezcla perfecta para tu día.</p>
                         <p>
                             <button type="button" class="btn btn-morado my-2" data-bs-toggle="modal" data-bs-target="#modalCrear">
                                 Crear nueva playlist
@@ -108,19 +111,15 @@
 
     <div class="container">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top border-secondary">
-
-            <p class="col-md-4 mb-0 text-body-secondary">© 2026 ADA MUSIC</p>
-
+            <p class="col-md-4 mb-0 text-white-50">© 2026 ADA MUSIC</p>
             <a href="menu.html" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-decoration-none">
                 <img src="../image/logochico.png" alt="ADA MUSIC" height="32">
             </a>
-
             <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Página Principal</a></li>
-                <li class="nav-item"><a href="tel:+56962448657" class="nav-link px-2 text-body-secondary">+56 9 6244 8657</a></li>
-                <li class="nav-item"><a href="mailto:soporte@ada.music.com" class="nav-link px-2 text-body-secondary">soporte@ada.music.com</a></li>
+                <li class="nav-item"><a href="index.html" class="nav-link px-2 text-white-50">Página Principal</a></li>
+                <li class="nav-item"><a href="tel:+56962448657" class="nav-link px-2 text-white-50">+56 9 6244 8657</a></li>
+                <li class="nav-item"><a href="mailto:soporte@ada.music.com" class="nav-link px-2 text-white-50">soporte@ada.music.com</a></li>
             </ul>
-
         </footer>
     </div>
 
@@ -138,14 +137,14 @@
                         <div class="mb-3">
                             <label for="inputNombre" class="form-label">Nombre <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" id="inputNombre" maxlength="40"
-                                   placeholder="Ej: Para estudiar">
+                                placeholder="Ej: Para estudiar">
                             <div id="errorNombre" class="invalid-feedback"></div>
                         </div>
 
                         <div class="mb-1">
                             <label for="inputDescripcion" class="form-label">Descripción (opcional)</label>
                             <textarea class="form-control" id="inputDescripcion" rows="2" maxlength="120"
-                                      placeholder="¿De qué se trata esta playlist?"></textarea>
+                                    placeholder="¿De qué se trata esta playlist?"></textarea>
                         </div>
                     </div>
 
@@ -204,6 +203,8 @@
         mostrarMensaje("No se encontraron resultados para \"" + texto + "\".", "warning");
     }
     </script>
+
+    <script src="../js/navbar.js"></script>
 
 </body>
 </html>

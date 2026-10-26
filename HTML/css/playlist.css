@@ -1,5 +1,47 @@
-.playlist-album {
+
+body {
+    background-color: #1e123a !important; 
+    color: #ffffff !important; 
+}
+
+/* Adaptación de los modales de Bootstrap al modo oscuro */
+.modal-content {
+    background-color: #3d2673;
+    color: #ffffff;
+    border: 1px solid #5a3c9e;
+}
+
+.modal-header {
+    border-bottom: 1px solid #5a3c9e;
+}
+
+.modal-footer {
+    border-top: 1px solid #5a3c9e;
+}
+
+/* Inputs oscuros dentro de los modales */
+.modal-content .form-control, 
+.modal-content .form-select {
+    background-color: #2b1b54;
+    color: #ffffff;
+    border: 1px solid #5a3c9e;
+}
+
+.modal-content .form-control:focus, 
+.modal-content .form-select:focus {
     background-color: #1e123a;
+    color: #ffffff;
+    border-color: #bda6df;
+    box-shadow: 0 0 0 0.25rem rgba(124, 45, 130, 0.25);
+}
+
+/* Vuelve blanca la "X" para cerrar el modal */
+.modal-content .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%);
+}
+
+.playlist-album {
+    background-color: #251647;
 }
 
 .playlist-card-dark {
@@ -28,6 +70,7 @@
     
     display: -webkit-box;
     -webkit-line-clamp: 2;
+    line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }

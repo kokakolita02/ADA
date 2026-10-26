@@ -1,20 +1,34 @@
 {
     "usuarios": [
         {
+            "id": 1,
             "username": "rlnaiko",
             "password": "gohan123"
         },
         {
+            "id": 2,
             "username": "daniel",
             "password": "dani12"
         },
         {
+            "id": 3,
             "username": "jere",
             "password": "jerepro"
         },
         {
+            "id": 4,
             "username": "invitado",
             "password": "invitado"
+        },
+        {
+            "id": 5,
+            "username": "elpepe",
+            "password": "etesech"
+        },
+        {
+            "id": 6,
+            "username": "1",
+            "password": "1"
         }
     ]
 }

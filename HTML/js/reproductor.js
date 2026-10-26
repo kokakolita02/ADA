@@ -129,11 +129,23 @@ function cancionAnterior() {
 
 if (audio) {
     // Botones
+
     btnPlayPause.addEventListener("click", reproducirPausar);
     btnAnterior.addEventListener("click", cancionAnterior);
     btnSiguiente.addEventListener("click", cancionSiguiente);
     btnFavorito.addEventListener("click", alternarFavorito);
+// El icono siempre refleja el estado real del audio (pausa o play)
+    audio.addEventListener("play", () => {
+        iconoPlayPause.classList.remove("fa-play");
+        iconoPlayPause.classList.add("fa-pause");
+        btnPlayPause.setAttribute("aria-label", "Pausar");
+    });
 
+    audio.addEventListener("pause", () => {
+        iconoPlayPause.classList.remove("fa-pause");
+        iconoPlayPause.classList.add("fa-play");
+        btnPlayPause.setAttribute("aria-label", "Reproducir");
+    });
     // Duración de la canción
     audio.addEventListener("loadedmetadata", () => {
         tiempoTotal.textContent = formatearTiempo(audio.duration);

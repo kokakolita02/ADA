@@ -27,7 +27,7 @@ function cargarPlaylists() {
     const guardado = localStorage.getItem(CLAVE_PLAYLISTS);
 
     if (guardado === null) {
-        // Playlists de ejemplo para la primera vez que se abre la página
+        // Playlist de ejemplo para la primera vez que se abre la página
         playlists = [
             { id: 1, nombre: "Recomendado por RlNaiko64", descripcion: "Una selección para descubrir cosas nuevas.", canciones: [0, 1] },
             { id: 2, nombre: "Para Estudiar", descripcion: "Música tranquila para concentrarse.", canciones: [5, 6] }
@@ -43,8 +43,7 @@ function guardarPlaylists() {
     localStorage.setItem(CLAVE_PLAYLISTS, JSON.stringify(playlists));
 }
 
-// Usamos == (no ===) porque el id puede venir como número (Date.now())
-// o como texto ("favoritos", el id fijo de la playlist del corazón)
+// se usa ==  porque el id puede venir como número o como texto ("favoritos", el id fijo de la playlist del corazón)
 function buscarPlaylistPorId(id) {
     return playlists.find((p) => p.id == id);
 }
@@ -135,13 +134,13 @@ function renderDetalle() {
     }).join("");
 }
 
-// Manda una canción al reproductor (misma clave que usa la búsqueda del header)
+// Manda una canción al reproductor 
 function reproducirCancion(indice) {
     localStorage.setItem("cancionBuscada", indice);
     window.location.href = "reproductor.html";
 }
 
-// Reproduce la primera canción de una playlist (desde la tarjeta o el detalle)
+// Reproduce la primera canción de una playlist 
 function reproducirPlaylist(id) {
     const playlist = buscarPlaylistPorId(id);
 
@@ -191,8 +190,7 @@ formCrear.addEventListener("submit", (evento) => {
 inputNombre.addEventListener("input", () => inputNombre.classList.remove("is-invalid"));
 
 function abrirModalAgregar() {
-    // Llena el <select> con las canciones del catálogo que
-    // todavía no están en esta playlist
+    // Llena el "select" de la pagina con las canciones del catálogo que todavía no están en esta playlist
     const playlist = buscarPlaylistPorId(idPlaylistAbierta);
 
     selectCancion.innerHTML = "";

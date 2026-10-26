@@ -1,6 +1,6 @@
 
 .reproductor-card {
-    background-color: white;
+    background-color: #1a123a;
     width: 100%;
     max-width: 380px;
     text-align: center;
@@ -17,7 +17,7 @@
 
 .tiempo {
     font-size: 0.85rem;
-    color: #6c757d;
+    color: #bebebe;
     min-width: 2.5rem;
 }
 
@@ -34,7 +34,7 @@
 
 
 .btn-control {
-    background-color: #f0ecf9;
+    background-color: #a387e2;
     border: none;
     border-radius: 50%;
     width: 48px;

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catálogo - ADA MUSIC</title>
+
+    <!-- Librerías externas -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <!-- Solo dos CSS propios: el del catálogo y el del reproductor -->
+    <link href="../css/catalogo.css" rel="stylesheet">
+    <link href="../css/reproductor.css" rel="stylesheet">
+
+    <!-- 1) Primero nuestra función explorador() -->
+    <script src="../js/explorador.js"></script>
+
+    <!-- Scripts -->
+    <script src="../js/catalogo.js"></script>
+    <script src="../js/reproductor.js" defer></script>
+
+    <!-- Función "¿Sugerir una canción?"  -->
+    <script>
+        // Función que Alpine usa en x-data="sugerirCancion()"
+        function sugerirCancion() {
+            return {
+                // --- Estado ---
+                abierto: false,     // visibilidad (si o no)
+                nombre: '',         // cada campo se conecta con x-model
+                artista: '',
+                genero: '',
+                comentario: '',
+                error: '',          // texto de error
+                enviado: false,     // true sise guardó bien
+
+                // Se ejecuta al enviar el formulario 
+                enviar() {
+                    //  limpiar mensajes anteriores
+                    this.error = '';
+                    this.enviado = false;
+
+                    //  Validación (nombre y artista son obligatorios)
+                    if (this.nombre.trim() === '' || this.artista.trim() === '') {
+                        this.error = 'Completa al menos el nombre de la canción y el artista.';
+                        return;
+                    }
+
+                    //  Lee las sugerencias que ya había (o un arreglo vacío)
+                    let sugerencias = [];
+                    try {
+                        sugerencias = JSON.parse(localStorage.getItem('sugerencias')) || [];
+                    } catch (e) {
+                        sugerencias = [];
+                    }
+
+                    //  Agrega la nueva sugerencia
+                    sugerencias.push({
+                        nombre: this.nombre.trim(),
+                        artista: this.artista.trim(),
+                        genero: this.genero.trim(),
+                        comentario: this.comentario.trim(),
+                        fecha: new Date().toISOString()
+                    });
+
+                    //  Guarda el arreglo completo (localStorage solo guarda texto)
+                    localStorage.setItem('sugerencias', JSON.stringify(sugerencias));
+
+                    //  Vacia el formulario y muestra el mensaje de éxito
+                    this.nombre = '';
+                    this.artista = '';
+                    this.genero = '';
+                    this.comentario = '';
+                    this.enviado = true;
+                }
+            };
+        }
+    </script>
+
+    <!-- 2) Después Alpine.js (con defer para que funcione) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.9/dist/cdn.min.js"></script>
+</head>
+
+<body>
+
+    <!-- HEADER ADA MUSIC -->
+    <header class="header-ada p-3">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+
+                <a href="menu.html" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none me-lg-4">
+                    <img src="../image/logochico.png" alt="ADA MUSIC" height="40">
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="../html/menu.html" class="nav-link px-2">Menú Principal</a></li>
+                    <li><a href="../html/catalogo.html" class="nav-link px-2 text-white fw-bold">Catálogo</a></li>
+                    <li><a href="../html/playlist.html" class="nav-link px-2">Playlists</a></li>
+                    <li><a href="../html/historial.html" class="nav-link px-2">Historial</a></li>
+                </ul>
+
+                <div class="dropdown text-end">
+                <button class="btn btn-secondary dropdown-toggle fw-bold" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #8c428f; border: none;">
+                <span id="nombre-usuario-nav"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                <li><a class="dropdown-item text-danger" href="#" onclick="localStorage.removeItem('usuarioLogueado'); window.location.href='index.html?vista=login'; return false;">Cerrar sesión</a></li>
+                </ul>
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!--  el contenido interactivo está dentro de este x-data -->
+    <main x-data="explorador()" class="playlist-album py-5"
+          x-effect="document.body.style.paddingBottom = miniVisible ? '80px' : ''">
+        <div class="container">
+
+            <!-- título y botón de ayuda -->
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3">
+                <h1 class="fw-light text-white mb-0">Catálogo de canciones</h1>
+
+                <button type="button" class="btn btn-outline-light"
+                        @click="mostrarAyuda = !mostrarAyuda"
+                        :aria-expanded="mostrarAyuda">
+                    <i class="fa fa-circle-question me-1"></i>
+                    <span x-text="mostrarAyuda ? 'Ocultar ayuda' : '¿Cómo funciona?'"></span>
+                </button>
+            </div>
+
+            <!-- sección de ayuda -->
+            <div x-show="mostrarAyuda" x-cloak class="playlist-card-dark rounded-3 p-3 mb-4 text-white">
+                <h2 class="h5">¿Cómo usar el catálogo?</h2>
+                <ul class="mb-0 playlist-desc-secundario">
+                    <li>Escribe en el buscador para filtrar.</li>
+                    <li>Presiona <strong>Reproducir</strong> para escuchar una canción en el reproductor.</li>
+                    <li>Con la flecha del reproductor la música sigue sonando en una barra mini al final de la página.</li>
+                </ul>
+            </div>
+
+           
+            <!-- sugerir una canción  -->
+         
+           
+            <div x-data="sugerirCancion()" class="mb-4">
+
+                <!-- Botón que abre o cierra el formulario -->
+                <button type="button" class="btn btn-morado"
+                        @click="abierto = !abierto"
+                        :aria-expanded="abierto">
+                    <i class="fa fa-lightbulb me-1"></i> ¿Sugerir una canción?
+                </button>
+
+                <!-- Panel del formulario solo se ve cuando está avierto  -->
+                <div x-show="abierto" x-cloak x-transition
+                     class="playlist-card-dark rounded-3 p-3 mt-3 text-white">
+
+                    <h2 class="h5 mb-3">Sugiere una canción para el catálogo</h2>
+
+                    <!-- @submit.prevent evita que la página se recargue al enviar -->
+                    <form @submit.prevent="enviar()" novalidate>
+                        <div class="row g-3">
+
+                            <div class="col-12 col-md-6">
+                                <label for="sug-nombre" class="form-label">Nombre de la canción *</label>
+                                <input id="sug-nombre" type="text" class="form-control"
+                                       maxlength="80" x-model="nombre">
+                            </div>
+
+                            <div class="col-12 col-md-6">
+                                <label for="sug-artista" class="form-label">Artista *</label>
+                                <input id="sug-artista" type="text" class="form-control"
+                                       maxlength="80" x-model="artista">
+                            </div>
+
+                            <div class="col-12 col-md-4">
+                                <label for="sug-genero" class="form-label">Género (opcional)</label>
+                                <input id="sug-genero" type="text" class="form-control"
+                                       maxlength="40" x-model="genero">
+                            </div>
+
+                            <div class="col-12 col-md-8">
+                                <label for="sug-comentario" class="form-label">Comentario (opcional)</label>
+                                <input id="sug-comentario" type="text" class="form-control"
+                                       maxlength="150" x-model="comentario">
+                            </div>
+
+                        </div>
+
+                        <!-- Mensaje de error (si falta algo) -->
+                        <div x-show="error !== ''" x-cloak class="alert alert-danger mt-3 mb-0" role="alert">
+                            <span x-text="error"></span>
+                        </div>
+
+                        <!-- Mensaje de éxito -->
+                        <div x-show="enviado" x-cloak class="alert alert-success mt-3 mb-0" role="status">
+                            ¡Gracias! Tu sugerencia quedó guardada.
+                        </div>
+
+                        <button type="submit" class="btn btn-morado mt-3">
+                            <i class="fa fa-paper-plane me-1"></i> Enviar sugerencia
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <!-- FIN SUGERIR UNA CANCIÓN -->
+
+            <!-- buscador -->
+            <div class="mb-3">
+                <label for="buscador" class="form-label text-white">Buscar</label>
+                <input id="buscador" type="search" class="form-control form-control-lg"
+                    placeholder="Ej: Spinetta, rock, Bad Bunny…"
+                    x-model="busqueda"
+                    :disabled="cargando || error !== ''">
+            </div>
+
+            <!-- estados -->
+            <div x-show="cargando" x-cloak class="estado-vacio-oscuro" role="status">
+                <div class="spinner-border spinner-border-sm me-2" aria-hidden="true"></div> Cargando canciones…
+            </div>
+
+            <div x-show="error !== ''" x-cloak class="alert alert-danger" role="alert">
+                <span x-text="error"></span>
+            </div>
+
+            <!-- lista de canciones -->
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3 mb-5" x-show="!cargando && error === ''" x-cloak>
+                <template x-for="c in filtradas" :key="c.id">
+                    <div class="col">
+                        <div class="card shadow-sm h-100 playlist-card-dark">
+                            <img :src="c.portada" class="card-img-top" :alt="'Portada de ' + c.nombre">
+                            <div class="card-body text-light d-flex flex-column">
+                                <h2 class="h5 card-title fw-bold text-truncate" x-text="c.nombre"></h2>
+                                <p class="card-text playlist-desc-dark mb-2" x-text="c.artista"></p>
+                                <div class="d-flex justify-content-between align-items-center mt-auto">
+                                    <span class="badge btn-morado" x-text="c.genero"></span>
+
+                                    <!-- Botón que activa el reproductor -->
+                                    <button type="button" class="btn btn-sm btn-morado"
+                                            x-show="puedeReproducir(c)" @click="reproducir(c)">
+                                        <i class="fa fa-play me-1"></i> Reproducir
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+           
+            <!-- REPRODUCTOR FLOTANTE  -->
+            
+            <!-- Se muestra cuando la variable mostrarReproductor es true -->
+            <div x-show="mostrarReproductor" x-cloak class="reproductor-overlay" x-transition @click.self="minimizar()">
+
+                <!-- Un click fuera también minimiza -->
+                <div class="reproductor-card p-4 rounded-3 position-relative">
+
+                    <!-- Botón para minimizar -->
+                    <button type="button" class="btn btn-link text-white position-absolute top-0 end-0 m-2 fs-5"
+                            aria-label="Minimizar reproductor" title="Minimizar" @click="minimizar()">
+                        <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                    </button>
+
+                    <!-- Portada y datos de la canción (los llena reproductor.js) -->
+                    <img id="portada" class="portada mb-3" src="" alt="Portada de la canción">
+                    <h2 id="nombreCancion" class="h4 mb-1">Nombre de la canción</h2>
+                    <p id="nombreArtista" class="text-secondary mb-4">Artista</p>
+
+                    <!-- Audio  -->
+                    <audio id="audio"></audio>
+
+                    <!-- Barra de progreso -->
+                    <div class="d-flex align-items-center gap-2 mb-3">
+                        <span id="tiempoActual" class="tiempo">0:00</span>
+                        <input type="range" id="barraProgreso" class="form-range flex-grow-1" value="0" min="0" max="100">
+                        <span id="tiempoTotal" class="tiempo">0:00</span>
+                    </div>
+
+                    <!-- botones -->
+                    <div class="d-flex justify-content-center align-items-center gap-4">
+                        <button id="btnAnterior" class="btn-control" type="button" aria-label="Canción anterior">
+                            <i class="fa fa-step-backward" aria-hidden="true"></i>
+                        </button>
+                        <button id="btnPlayPause" class="btn-control btn-control-grande" type="button" aria-label="Reproducir">
+                            <i id="iconoPlayPause" class="fa fa-play" aria-hidden="true"></i>
+                        </button>
+                        <button id="btnSiguiente" class="btn-control" type="button" aria-label="Canción siguiente">
+                            <i class="fa fa-step-forward" aria-hidden="true"></i>
+                        </button>
+                    </div>
+
+                    <!-- Botón de favorito -->
+                    <button id="btnFavorito" class="btn-favorito mt-3" type="button" aria-label="Agregar a favoritos">
+                        <i id="iconoFavorito" class="fa-regular fa-heart" aria-hidden="true"></i>
+                    </button>
+
+                </div>
+            </div>
+            <!-- FIN REPRODUCTOR FLOTANTE -->
+
+            <!-- MINI REPRODUCTOR -->
+            <div x-show="miniVisible" x-cloak x-transition class="mini-reproductor" role="region" aria-label="Mini reproductor">
+
+                <div class="mini-progreso" :style="'width: ' + progreso + '%'"></div>
+
+                <div class="mini-info" role="button" tabindex="0" aria-label="Abrir reproductor"
+                     @click="expandir()" @keydown.enter="expandir()">
+                    <img :src="cancionActual?.portada" alt="" @error="$event.target.src = '../image/logochico.png'">
+                    <div class="mini-textos">
+                        <p class="mini-titulo" x-text="cancionActual?.nombre"></p>
+                        <p class="mini-artista" x-text="cancionActual?.artista"></p>
+                    </div>
+                </div>
+
+                <div class="mini-controles">
+                    <button type="button" class="btn-icono mini-opcional" aria-label="Canción anterior" @click="anterior()">
+                        <i class="fa fa-step-backward" aria-hidden="true"></i>
+                    </button>
+
+                    <button type="button" class="btn-icono mini-play"
+                            :aria-label="reproduciendo ? 'Pausar' : 'Reproducir'" @click="alternarPlay()">
+                        <i class="fa" :class="reproduciendo ? 'fa-pause' : 'fa-play'" aria-hidden="true"></i>
+                    </button>
+
+                    <button type="button" class="btn-icono mini-opcional" aria-label="Canción siguiente" @click="siguiente()">
+                        <i class="fa fa-step-forward" aria-hidden="true"></i>
+                    </button>
+
+                    <button type="button" class="btn-icono mini-opcional" aria-label="Abrir reproductor" title="Abrir reproductor" @click="expandir()">
+                        <i class="fa fa-chevron-up" aria-hidden="true"></i>
+                    </button>
+
+                    <button type="button" class="btn-icono" aria-label="Detener y cerrar" title="Detener y cerrar" @click="detener()">
+                        <i class="fa fa-xmark" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- FIN DEL MINI REPRODUCTOR -->
+
+        </div>
+    </main>
+
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top border-secondary">
+
+            <!-- Copyright -->
+            <p class="col-md-4 mb-0 text-white-50">© 2026 ADA MUSIC</p>
+
+            <!-- Logo -->
+            <a href="menu.html" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-decoration-none">
+                <img src="../image/logochico2.png" alt="ADA MUSIC" height="32">
+            </a>
+
+            <!-- Contacto -->
+            <ul class="nav col-md-4 justify-content-end">
+                <li class="nav-item"><a href="index.html" class="nav-link px-2 text-white-50">Página Principal</a></li>
+                <li class="nav-item"><a href="tel:+56962448657" class="nav-link px-2 text-white-50">+56 9 6244 8657</a></li>
+                <li class="nav-item"><a href="mailto:soporte@ada.music.com" class="nav-link px-2 text-white-50">soporte@ada.music.com</a></li>
+            </ul>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/navbar.js"></script>
+</body>
+</html>

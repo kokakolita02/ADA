@@ -21,15 +21,21 @@
                 </a>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="menu.html" class="nav-link px-2">Menú Principal</a></li>
+                    <li><a href="catalogo.html" class="nav-link px-2">Catálogo</a></li>
                     <li><a href="reproductor.html" class="nav-link px-2 text-white fw-bold">Reproductor</a></li>
                     <li><a href="playlist.html" class="nav-link px-2">Playlists</a></li>
                     <li><a href="historial.html" class="nav-link px-2">Historial</a></li>
                 </ul>
-                <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" onsubmit="buscarCancion(event)">
-                <input id="busqueda" type="search" class="form-control" placeholder="Buscar canciones, artistas...">
-                </form>
-                <div class="text-end">
-                    <a href="login.html" class="btn btn-primary">Cerrar sesión</a>
+                
+                <div class="dropdown text-end">
+                <button class="btn btn-secondary dropdown-toggle fw-bold" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #8c428f; border: none;">
+                <span id="nombre-usuario-nav"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="userDropdown">
+                <li><h6 class="dropdown-header">Opciones</h6></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" onclick="localStorage.removeItem('usuarioLogueado'); window.location.href='index.html?vista=login'; return false;">Cerrar sesión</a></li>
+                </ul>
                 </div>
             </div>
         </div>
@@ -113,9 +119,11 @@ function buscarCancion(event) {
         <ul class="nav col-md-4 justify-content-end"> 
             <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Página Principal</a></li> 
             <li class="nav-item"><a href="tel:+56962448657" class="nav-link px-2 text-body-secondary">+56 9 6244 8657</a></li> 
-            <li class="nav-item"><a href="soporte@ada.music.com" class="nav-link px-2 text-body-secondary">soporte@ada.music.com</a></li> 
+            <li class="nav-item"><a href="mailto:soporte@ada.music.com" class="nav-link px-2 text-body-secondary">soporte@ada.music.com</a></li> 
         </ul> 
         
     </footer> 
+
+    <script src="../js/navbar.js"></script>
 </body>
 </html>
