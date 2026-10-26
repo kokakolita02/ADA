@@ -3,17 +3,68 @@ Nuestro proyecto consiste en un servicio de reproducción de música, inspirado 
 
 Fueron utilizadas las tecnologías de Bootstrap, para la estructura del sitio, junto a importaciones de su repositorio CSS y JS. Se utilizaron las inteligencias artificiales de Gemini, ChatGPT y Claude, para la generación de los logos del servicio ficticio y a modo de aprendizaje en los lenguajes requeridos. Además, se usó VS Code para la escritura del código.
 
-Mantenemos una estructura de carpetas de modo que están los archivos agrupados según tipo:
-html
-css
-js
-image
-music.
+En la Tarea 2 agregamos Alpine.js. Se importa por CDN, igual que Bootstrap, con un `<script defer>` en el head de `index.html` y `catalogo.html`, así que no hay que instalar nada.
+
+Mantenemos una estructura de carpetas de modo que están los archivos agrupados según tipo (dentro de la carpeta HTML):
+- html
+- css
+- js
+- image
+- music
+- json (nueva, tiene `canciones.json` y `usuarios.json`)
 
 Nuestras funcionalidades principales son las siguientes:
-Menú principal: página principal una vez se inicia la sesión.
-Reproductor: donde se escucha la música, puedes avanzar, retroceder, pausar, reproducir y agregar canciones a tus favoritos.
-Playlist: lugar donde se agrupan tus canciones, puedes crear listas de reproducción personalizadas y modificar las existentes.
-Historial: guarda el registro de las canciones escuchadas.
+- Menú principal: página principal una vez se inicia la sesión.
+- Reproductor: donde se escucha la música, puedes avanzar, retroceder, pausar, reproducir y agregar canciones a tus favoritos.
+- Playlist: lugar donde se agrupan tus canciones, puedes crear listas de reproducción personalizadas y modificar las existentes.
+- Historial: guarda el registro de las canciones escuchadas.
+
+Funcionalidades agregadas en la Tarea 2:
+- Login (`index.html`): cambia entre la pantalla de inicio y el login sin recargar, y valida el usuario con `usuarios.json`.
+- Catálogo (`catalogo.html`): muestra las canciones cargadas desde `canciones.json`.
+- Buscador: filtra el catálogo mientras se escribe, por nombre, artista o género.
+- Formulario "¿Sugerir una canción?": nombre y artista son obligatorios, y la sugerencia se guarda en el navegador.
+- Sección "¿Cómo funciona?": se muestra u oculta con un botón.
+- Reproductor del catálogo: se puede minimizar a una barra pequeña abajo.
+
+Archivo JSON:
+Está en `HTML/json/canciones.json`. Es una lista de 15 canciones y cada una tiene esta forma (las rutas son relativas a la carpeta html):
+
+```json
+{
+  "id": 1,
+  "nombre": "ME JALO",
+  "artista": "Grupo Frontera, Fuerza Regida",
+  "genero": "Regional mexicano",
+  "archivo": "../music/MEJALO.mp3",
+  "portada": "../image/MEJALO.jpg"
+}
+```
+
+Flujo de carga y filtrado:
+1. Al abrir `catalogo.html`, Alpine inicia `explorador()` y este llama a `cargarCanciones()`.
+2. `cargarCanciones()` hace un `fetch` a `../json/canciones.json` y guarda las canciones. Si falla, guarda un mensaje de error.
+3. Mientras carga se ve "Cargando canciones…".
+4. El listado se arma con `filtradas`, que deja solo las canciones que contienen lo escrito en el buscador (en nombre, artista o género, sin importar mayúsculas ni tildes). Si el buscador está vacío se muestran todas.
+
+Cómo probar:
+Entrar a la dirección del despliegue, o en local correr `python3 -m http.server` dentro de la carpeta HTML y abrir `http://localhost:8000/html/index.html`. Con doble clic en el archivo no funciona, porque el navegador no deja leer el JSON.
+1. Iniciar sesión con un usuario de `usuarios.json` (por ejemplo `invitado`) y entrar a Catálogo.
+2. Listado: deben aparecer las 15 canciones.
+3. Búsqueda: escribir "spinetta" deja 3 canciones, "rock" también deja 3.
+4. Formulario: abrir "¿Sugerir una canción?" y enviarlo vacío, sale un error. Con nombre y artista sale el mensaje de éxito. Se puede ver lo guardado en F12 > Application > Local Storage > `sugerencias`.
+5. Sección que se muestra u oculta: el botón "¿Cómo funciona?" muestra la ayuda y al presionarlo otra vez la oculta.
+
+Cómo comprobar el error de carga:
+Cambiar el nombre de `json/canciones.json` (por ejemplo a `canciones2.json`) y recargar `catalogo.html`. Debe salir "No se pudo cargar el catálogo de canciones. Intenta nuevamente." y el buscador queda desactivado. Después hay que devolverle el nombre al archivo.
 
 La dirección IP utilizada para el despliegue es: 54.221.86.111
+
+Limitaciones conocidas:
+- Al recargar la página se pierde lo que maneja Alpine: lo escrito en el buscador, la ayuda o el formulario abiertos, lo escrito en el formulario sin enviar y la canción que está sonando. En `index.html` se vuelve a la pantalla de inicio.
+- Se mantienen la sesión, el historial, las playlists y las sugerencias porque están en localStorage, pero solo en ese navegador.
+- Las sugerencias no se envían a ningún servidor y tampoco se pueden ver desde el sitio.
+- El catálogo está en `canciones.json` y también en `catalogo.js`, si se agrega una canción hay que agregarla en los dos.
+- Si el buscador no encuentra nada, no se muestra ningún mensaje.
+- El login es solo de prueba, las credenciales están en un JSON público.
+- El sitio necesita internet para cargar Bootstrap, Font Awesome y Alpine.js desde CDN.
