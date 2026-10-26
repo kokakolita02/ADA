@@ -43,7 +43,7 @@ function guardarPlaylists() {
     localStorage.setItem(CLAVE_PLAYLISTS, JSON.stringify(playlists));
 }
 
-// se usa ==  porque el id puede venir como número o como texto ("favoritos", el id fijo de la playlist del corazón)
+// se usa ==  porque el id puede venir como número o como texto ("favoritos", el id fijo de la playlist de favorito)
 function buscarPlaylistPorId(id) {
     return playlists.find((p) => p.id == id);
 }
@@ -134,13 +134,19 @@ function renderDetalle() {
     }).join("");
 }
 
-// Manda una canción al reproductor 
-function reproducirCancion(indice) {
-    localStorage.setItem("cancionBuscada", indice);
-    window.location.href = "reproductor.html";
+// Guarda la cola en localStorage y manda al catálogo, que es donde suena todo
+function enviarACatalogo(cola, inicio) {
+    localStorage.setItem("colaReproduccion", JSON.stringify({ cola: cola, inicio: inicio }));
+    window.location.href = "catalogo.html";
 }
 
-// Reproduce la primera canción de una playlist 
+// Suena la canción y después siguen las de la playlist
+function reproducirCancion(indice) {
+    const playlist = buscarPlaylistPorId(idPlaylistAbierta);
+    enviarACatalogo(playlist.canciones, indice);
+}
+
+// Reproduce la playlist desde la primera canción
 function reproducirPlaylist(id) {
     const playlist = buscarPlaylistPorId(id);
 
@@ -149,9 +155,8 @@ function reproducirPlaylist(id) {
         return;
     }
 
-    reproducirCancion(playlist.canciones[0]);
+    enviarACatalogo(playlist.canciones, playlist.canciones[0]);
 }
-
 function eliminarPlaylist() {
     const playlist = buscarPlaylistPorId(idPlaylistAbierta);
 
