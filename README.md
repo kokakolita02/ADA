@@ -32,6 +32,8 @@ Funcionalidades agregadas en la Tarea 2:
 Archivo JSON:
 Está en HTML/json/canciones.json. Es una lista de 15 canciones y cada una tiene esta forma (las rutas son relativas a la carpeta html):
 
+json
+```
 {
   "id": 1,
   "nombre": "ME JALO",
@@ -40,7 +42,7 @@ Está en HTML/json/canciones.json. Es una lista de 15 canciones y cada una tiene
   "archivo": "../music/MEJALO.mp3",
   "portada": "../image/MEJALO.jpg"
 }
-
+```
 
 Flujo de carga y filtrado:
 1. Al abrir catalogo.html, Alpine inicia explorador() y este llama a cargarCanciones().
