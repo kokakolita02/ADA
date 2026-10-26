@@ -1,5 +1,3 @@
-
-
 function explorador() {
     return {
         // Estado
@@ -28,6 +26,14 @@ function explorador() {
             }
 
             await this.cargarCanciones();
+
+            // Si llegamos desde una playlist, parte sola con la canción que corresponde
+            if (typeof inicioDesdePlaylist !== "undefined" && inicioDesdePlaylist !== null) {
+                const objetivo = catalogo[inicioDesdePlaylist];
+                inicioDesdePlaylist = null;
+                const c = objetivo ? this.canciones.find((x) => x.archivo === objetivo.archivo) : null;
+                if (c) this.reproducir(c, true);
+            }
         },
 
         async cargarCanciones() {
@@ -75,15 +81,16 @@ function explorador() {
             return this.cancionActual !== null && !this.mostrarReproductor;
         },
 
-        reproducir(c) {
+        // Si conservarCola es true se mantiene la playlist, si no vuelve al orden normal del catálogo
+        reproducir(c, conservarCola) {
             const indice = catalogo.findIndex((x) => x.archivo === c.archivo);
             if (indice === -1) return;
+
+            if (!conservarCola) cola = null;
 
             this.cancionActual = c;
             this.mostrarReproductor = true;
 
-            indiceActual = indice;
-            cargarCancion(indiceActual);
             indiceActual = indice;
             cargarCancion(indiceActual);
             guardarHistorial();
