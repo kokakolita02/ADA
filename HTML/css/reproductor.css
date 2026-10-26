@@ -1,3 +1,13 @@
+body {
+    background-color: #1e123a !important;
+    color: #ffffff;
+}
+
+.reproductor-card .text-secondary,
+footer .text-body-secondary,
+footer .nav-link {
+    color: #ffffff !important;
+}
 
 .reproductor-card {
     background-color: #1a123a;
@@ -17,7 +27,7 @@
 
 .tiempo {
     font-size: 0.85rem;
-    color: #bebebe;
+    color: #ffffff;
     min-width: 2.5rem;
 }
 
