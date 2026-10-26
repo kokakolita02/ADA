@@ -1,5 +1,10 @@
 let indiceActual = 0;
 
+// Si viene de una playlist acá se guardan sus canciones. Si es null sigue el catálogo normal
+let cola = null;
+// Canción por la que hay que partir cuando se llega desde una playlist
+let inicioDesdePlaylist = null;
+
 const audio = document.getElementById("audio");
 const portadaImg = document.getElementById("portada");
 const nombreCancion = document.getElementById("nombreCancion");
@@ -16,6 +21,16 @@ const iconoFavorito = document.getElementById("iconoFavorito");
 
 const CLAVE_PLAYLISTS = "ada_playlists";
 const ID_FAVORITOS = "favoritos";
+
+// Calcula cuál canción sigue (+1) o cuál va antes (-1), respetando la playlist si hay una
+function moverIndice(delta) {
+    if (cola && cola.length > 0) {
+        let pos = cola.indexOf(indiceActual);
+        if (pos === -1) pos = 0;
+        return cola[(pos + delta + cola.length) % cola.length];
+    }
+    return (indiceActual + delta + catalogo.length) % catalogo.length;
+}
 
 // datos de la canción
 function cargarCancion(indice) {
@@ -100,7 +115,7 @@ function reproducirPausar() {
 }
 
 function cancionSiguiente() {
-    indiceActual = (indiceActual + 1) % catalogo.length;
+    indiceActual = moverIndice(1);
     cargarCancion(indiceActual);
     guardarHistorial();
     audio.play()
@@ -114,13 +129,13 @@ function cancionSiguiente() {
 }
 
 function cancionAnterior() {
-    indiceActual = (indiceActual - 1 + catalogo.length) % catalogo.length;
+    indiceActual = moverIndice(-1);
     cargarCancion(indiceActual);
     guardarHistorial();
     audio.play()
         .then(() => {
-            iconoPlayPause.classList.remove("fa-play");
-            iconoPlayPause.classList.add("fa-pause");
+            iconoPlayPause.classList.remove("fa-pause");
+            iconoPlayPause.classList.add("fa-play");
         })
         .catch((error) => {
             console.error("No se pudo reproducir el audio:", error, "src:", audio.src);
@@ -134,7 +149,8 @@ if (audio) {
     btnAnterior.addEventListener("click", cancionAnterior);
     btnSiguiente.addEventListener("click", cancionSiguiente);
     btnFavorito.addEventListener("click", alternarFavorito);
-// El icono siempre refleja el estado real del audio (pausa o play)
+
+    // El icono siempre refleja el estado real del audio (pausa o play)
     audio.addEventListener("play", () => {
         iconoPlayPause.classList.remove("fa-play");
         iconoPlayPause.classList.add("fa-pause");
@@ -146,6 +162,7 @@ if (audio) {
         iconoPlayPause.classList.add("fa-play");
         btnPlayPause.setAttribute("aria-label", "Reproducir");
     });
+
     // Duración de la canción
     audio.addEventListener("loadedmetadata", () => {
         tiempoTotal.textContent = formatearTiempo(audio.duration);
@@ -175,6 +192,20 @@ if (audio) {
     if (cancionBuscada != null) {
         indiceActual = Number(cancionBuscada);
         localStorage.removeItem("cancionBuscada");
+    }
+
+    // Si venimos de una playlist, se carga su cola y se parte por la canción elegida
+    const colaGuardada = localStorage.getItem("colaReproduccion");
+    if (colaGuardada != null) {
+        try {
+            const datos = JSON.parse(colaGuardada);
+            cola = datos.cola;
+            indiceActual = datos.inicio;
+            inicioDesdePlaylist = datos.inicio;
+        } catch (e) {
+            cola = null;
+        }
+        localStorage.removeItem("colaReproduccion");
     }
 
     cargarCancion(indiceActual);
